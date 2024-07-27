@@ -68,7 +68,7 @@
       kitty
       firefox
       discord
-
+      neofetch
     ];
   };
 

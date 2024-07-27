@@ -25,6 +25,9 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
+  # Enable flakes
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
   # Set your time zone.
   time.timeZone = "Europe/London";
 

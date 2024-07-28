@@ -47,6 +47,14 @@
     LC_TIME = "en_GB.UTF-8";
   };
 
+  # Fonts
+  fonts.packages = with pkgs; [
+    font-awesome
+    powerline-fonts
+    powerline-symbols
+    (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
+  ];
+
   # Configure keymap in X11
   services.xserver = {
     layout = "gb";
@@ -101,6 +109,8 @@
     libnotify
     ## App launcher
     rofi-wayland
+    # Wallpaper manager
+    swww
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

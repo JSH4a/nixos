@@ -35,17 +35,46 @@
     # # configuration. For example, this adds a command 'my-hello' to your
     # # environment:
     (pkgs.writeShellScriptBin "rebuild" ''
-             set -e
-             pushd ~/nixos/
-      nvim flake.nix
+      set -e
+
+      # Navigate to the NixOS directory
+      pushd ~/nixos/
+
+      # Function to open specific files in nvim
+      edit_file() {
+        case "$1" in
+          f)
+            nvim flake.nix
+            ;;
+          c)
+            nvim hosts/default/configuration.nix
+            ;;
+          h)
+            nvim hosts/default/home.nix
+            ;;
+          *)
+            echo "Invalid option. Use 'f' for flake.nix, 'c' for configuration.nix, or 'h' for home.nix."
+            exit 1
+            ;;
+        esac
+      }
+
+      # Check if an argument is provided
+      if [ $# -gt 0 ]; then
+        edit_file "$1"
+      fi
+
+      # Continue with the rest of the script
       alejandra . &>/dev/null
       git diff -U0 *.nix
       echo "NixOS Rebuilding..."
       sudo nixos-rebuild switch --flake ~/nixos/hosts/#default &>nixos-switch.log || (
-      	  cat nixos-switch.log | grep --color error && false)
+        cat nixos-switch.log | grep --color error && false)
       gen=$(nixos-rebuild list-generations | grep current)
       git commit -am "$gen"
-             popd
+
+      # Return to the previous directory
+      popd
     '')
   ];
 

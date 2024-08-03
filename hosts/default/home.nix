@@ -78,7 +78,7 @@
 
            # Continue with the rest of the script
            alejandra . &>/dev/null
-           git diff -U0 *.nix
+           git diff -U0 -- '*.nix' '*.conf'
            echo "NixOS Rebuilding..."
            sudo nixos-rebuild switch --flake ~/nixos/hosts/#default &>nixos-switch.log || (
              cat nixos-switch.log | grep --color error && false)

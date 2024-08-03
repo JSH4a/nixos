@@ -1,15 +1,19 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, lib, inputs, ... }:
-
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      inputs.home-manager.nixosModules.default
-    ];
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+
+    inputs.home-manager.nixosModules.default
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -27,7 +31,7 @@
   networking.networkmanager.enable = true;
 
   # Enable flakes
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   # Set your time zone.
   time.timeZone = "Europe/London";
@@ -52,7 +56,7 @@
     font-awesome
     powerline-fonts
     powerline-symbols
-    (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
+    (nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
   ];
 
   # Configure keymap in X11
@@ -65,42 +69,44 @@
   console.keyMap = "uk";
 
   # Enable unfree software
-  nixpkgs.config.allowUnfreePredicate = _ : true;
+  nixpkgs.config.allowUnfreePredicate = _: true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.joshua = {
     isNormalUser = true;
     description = "Joshua";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = ["networkmanager" "wheel"];
     packages = with pkgs; [
       kitty
       firefox
       discord
       neofetch
+      jetbrains.idea-ultimate
+      rustup
+      cargo
+      rustc
     ];
   };
 
   # Home manager
   home-manager = {
-    extraSpecialArgs = { inherit inputs; };
+    extraSpecialArgs = {inherit inputs;};
     users = {
       "joshua" = import ./home.nix;
     };
-#    useGlobalPkgs = true;
- #   useUserPackages = true;
   };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     git
-    neovim  
+    neovim
     brightnessctl
     wofi
     swaylock
-
+    alejandra
     # Hyprland add-ons
     pkgs.waybar
     ## notifications
@@ -122,7 +128,7 @@
   # };
   programs.hyprland = {
     enable = true;
-#    package = inputs.hyprland.packages."${pkgs.system}".hyprland;
+    #    package = inputs.hyprland.packages."${pkgs.system}".hyprland;
     xwayland.enable = true;
   };
 
@@ -132,9 +138,9 @@
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
     localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
   };
-  
+
   xdg.portal.enable = true;
-  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
 
   environment.sessionVariables = {
     WLR_NO_HARDWARE_CURSORS = "1";
@@ -150,7 +156,7 @@
     nvidia.prime = {
       offload = {
         enable = true;
-	enableOffloadCmd = true;
+        enableOffloadCmd = true;
       };
 
       intelBusId = "PCI:0:2:0";
@@ -185,7 +191,6 @@
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
-
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
@@ -194,6 +199,4 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   # Edit this configuration file to define what should be installed on
   system.stateVersion = "24.05";
- 
 }
-

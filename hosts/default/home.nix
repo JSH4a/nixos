@@ -1,15 +1,8 @@
-{ config, pkgs, inputs, lib, ... }:
-let
-    startupScript = pkgs.pkgs.writeShellScriptBin "start" ''
-      ${pkgs.waybar}/bin/waybar &
-      ${pkgs.swww}/bin/swww init &
-  
-      sleep 1
-  
-      ${pkgs.swww}/bin/swww img ${./wallpaper.png} &
-    '';
-in
 {
+  config,
+  pkgs,
+  ...
+}: {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "joshua";
@@ -40,9 +33,19 @@ in
     # # You can also create simple shell scripts directly inside your
     # # configuration. For example, this adds a command 'my-hello' to your
     # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
+    (pkgs.writeShellScriptBin "rebuild" ''
+             set -e
+             pushd ~/nixos/
+      nvim flake.nix
+      alejandra . &>/dev/null
+      git diff -U0 *.nix
+      echo "NixOS Rebuilding..."
+      sudo nixos-rebuild switch --flake ~/nixos/hosts/#default &>nixos-switch.log || (
+      	  cat nixos-switch.log | grep --color error && false)
+      gen=$(nixos-rebuild list-generations | grep current)
+      git commit -am "$gen"
+             popd
+    '')
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -82,14 +85,4 @@ in
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
-
-
-  wayland.windowManager.hyprland = {
-    enable = true;
-
-    settings = {
-      exec-once = ''${startupScript}/bin/start'';
-      enable = true;
-    };
-  };
 }

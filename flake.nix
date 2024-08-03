@@ -20,6 +20,8 @@
   outputs = {
     self,
     nixpkgs,
+    home-manager,
+    hyprland,
     ...
   } @ inputs: {
     nixosConfigurations = {
@@ -31,6 +33,14 @@
           inputs.home-manager.nixosModules.default
         ];
       };
+    };
+    homeConfigurations."joshua@nixos" = home-manager.lib.homeManagerConfiguration {
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+
+      modules = [
+        hyprland.homeManagerModules.default
+        {wayland.windowManager.hyprland.enable = true;}
+      ];
     };
   };
 }

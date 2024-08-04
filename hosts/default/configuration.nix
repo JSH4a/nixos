@@ -116,9 +116,6 @@
     pkgs.dunst
     pkgs.wl-clipboard
 
-    # App launcher
-    rofi-wayland
-
     # Wallpaper manager
     swww
   ];

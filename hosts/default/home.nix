@@ -21,7 +21,7 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-    rofi
+    rofi-wayland
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -138,7 +138,7 @@
   };
 
   programs.rofi = {
-    enable = true;
+    enable = false;
     theme = ''
       * {
         background-color: #00FF00;  /* Green color */

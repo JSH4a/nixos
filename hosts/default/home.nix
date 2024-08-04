@@ -139,10 +139,5 @@
 
   programs.wofi = {
     enable = true;
-    #theme = ''
-    #* {
-    #  background-color: #00FF00;
-    # }
-    #'';
   };
 }

@@ -104,7 +104,6 @@
     git
     neovim
     brightnessctl
-    wofi
     swaylock
     alejandra
 

@@ -77,14 +77,15 @@
     description = "Joshua";
     extraGroups = ["networkmanager" "wheel"];
     packages = with pkgs; [
-      kitty
-      firefox
-      discord
-      neofetch
-      jetbrains.idea-ultimate
-      rustup
       cargo
+      discord
+      firefox
+      jetbrains.idea-ultimate
+      kitty
+      neofetch
+      obsidian
       rustc
+      rustup
     ];
   };
 
@@ -99,7 +100,6 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     git
     neovim
@@ -107,14 +107,18 @@
     wofi
     swaylock
     alejandra
+
     # Hyprland add-ons
     pkgs.waybar
-    ## notifications
+
+    # notifications
+    libnotify
     pkgs.dunst
     pkgs.wl-clipboard
-    libnotify
-    ## App launcher
+
+    # App launcher
     rofi-wayland
+
     # Wallpaper manager
     swww
   ];

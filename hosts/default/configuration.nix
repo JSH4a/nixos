@@ -104,6 +104,7 @@
     git
     neovim
     brightnessctl
+    blueman
     swaylock
     alejandra
 
@@ -163,6 +164,9 @@
       nvidiaBusId = "PCI:1:0:0";
     };
     nvidia.nvidiaSettings = true;
+
+    bluetooth.enable = true;
+    bluetooth.powerOnBoot = true;
   };
 
   #  sound.enable = true;

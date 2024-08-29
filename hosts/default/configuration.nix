@@ -86,6 +86,13 @@
       obsidian
       rustc
       rustup
+
+      # skyrim mod dependenciees
+      xdg-utils
+      desktop-file-utils
+      glibc
+      gcc
+      fuse
     ];
   };
 

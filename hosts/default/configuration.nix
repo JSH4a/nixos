@@ -195,6 +195,8 @@
   services.displayManager.sddm.wayland.enable = true;
   services.displayManager.sddm.enable = true;
 
+  services.xserver.xrandrHeads.enable = true;
+
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 

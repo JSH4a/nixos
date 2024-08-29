@@ -93,6 +93,8 @@
       glibc
       gcc
       fuse
+      icu
+      appimage-run
     ];
   };
 

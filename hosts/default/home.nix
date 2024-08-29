@@ -124,6 +124,9 @@
   #
   home.sessionVariables = {
     # EDITOR = "emacs";
+    LD_LIBRARY_PATH = lib.makeLibraryPath (with pkgs; [
+      icu
+    ]);
   };
 
   # Let Home Manager install and manage itself.

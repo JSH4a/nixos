@@ -87,6 +87,7 @@
       rustc
       rustup
       android-studio
+      google-chrome
 
       # flutter dependencies
       bash

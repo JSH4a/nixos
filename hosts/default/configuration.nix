@@ -94,6 +94,7 @@
       curl
       unzip
       zip
+      cmake
     ];
   };
 

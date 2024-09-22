@@ -75,7 +75,7 @@
   users.users.joshua = {
     isNormalUser = true;
     description = "Joshua";
-    extraGroups = ["networkmanager" "wheel" "adbusers"];
+    extraGroups = ["networkmanager" "wheel" "adbusers" "plugdev"];
     packages = with pkgs; [
       cargo
       discord

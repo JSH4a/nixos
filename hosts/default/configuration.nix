@@ -86,10 +86,14 @@
       obsidian
       rustc
       rustup
+      android-studio
 
       # flutter dependencies
       bash
       file
+      curl
+      unzip
+      zip
     ];
   };
 

@@ -87,14 +87,9 @@
       rustc
       rustup
 
-      # skyrim mod dependenciees
-      xdg-utils
-      desktop-file-utils
-      glibc
-      gcc
-      fuse
-      icu
-      appimage-run
+      # flutter dependencies
+      bash
+      file
     ];
   };
 

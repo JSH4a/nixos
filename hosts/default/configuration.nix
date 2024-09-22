@@ -75,7 +75,7 @@
   users.users.joshua = {
     isNormalUser = true;
     description = "Joshua";
-    extraGroups = ["networkmanager" "wheel"];
+    extraGroups = ["networkmanager" "wheel" "adbusers"];
     packages = with pkgs; [
       cargo
       discord
@@ -96,6 +96,10 @@
       unzip
       zip
       cmake
+      clang
+      flutter
+      ninja
+      pkg-config
     ];
   };
 
@@ -149,6 +153,8 @@
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
     localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
   };
+
+  programs.adb.enable = true;
 
   xdg.portal.enable = true;
   xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
@@ -215,4 +221,15 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   # Edit this configuration file to define what should be installed on
   system.stateVersion = "24.05";
+
+  system.userActivationScripts = {
+    stdio = {
+      text = ''
+        rm -f ~/Android/Sdk/platform-tools/adb
+        ln -s /run/current-system/sw/bin/adb ~/Android/Sdk/platform-tools/adb
+      '';
+      deps = [
+      ];
+    };
+  };
 }
